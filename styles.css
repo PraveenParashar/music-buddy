@@ -1,0 +1,252 @@
+:root {
+  --green: #58cc02;
+  --green-d: #46a302;
+  --blue: #1cb0f6;
+  --orange: #ff9600;
+  --red: #ff4b4b;
+  --bg: #f7f7f7;
+  --text: #3c3c3c;
+  --muted: #8a8a8a;
+  --line: #e5e5e5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.in-lesson .tabbar { display: none; }
+body.in-lesson { padding-bottom: 0; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 5;
+  background: #fff; border-bottom: 2px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px;
+}
+.brand { font-weight: 800; font-size: 20px; color: var(--green); }
+.stats { display: flex; gap: 12px; font-weight: 700; }
+
+main { max-width: 520px; margin: 0 auto; padding: 16px; }
+.page-title { font-size: 26px; margin: 8px 0 4px; }
+.muted { color: var(--muted); }
+
+.tabbar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  max-width: 520px; margin: 0 auto;
+  display: flex; background: #fff; border-top: 2px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tabbar button {
+  flex: 1; background: none; border: 0; padding: 8px 0;
+  font-size: 20px; cursor: pointer; opacity: .5;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.tabbar button span { font-size: 12px; font-weight: 700; color: var(--muted); }
+.tabbar button.active { opacity: 1; }
+.tabbar button.active span { color: var(--green); }
+
+/* Buttons */
+.btn {
+  display: block; width: 100%; padding: 14px; border: 0; border-radius: 16px;
+  background: var(--green); color: #fff; font-weight: 800; font-size: 16px;
+  box-shadow: 0 4px 0 var(--green-d); cursor: pointer;
+  text-transform: uppercase; letter-spacing: .5px; margin-top: 16px;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--green-d); }
+.btn.secondary {
+  background: #fff; color: var(--blue);
+  box-shadow: 0 4px 0 var(--line); border: 2px solid var(--line);
+}
+.icon-btn { background: none; border: 0; font-size: 22px; color: var(--muted); cursor: pointer; padding: 4px; }
+
+/* Learn path */
+.unit-head {
+  background: var(--c); color: #fff; border-radius: 16px;
+  padding: 14px 16px; margin: 20px 0 8px;
+}
+.unit-head h2 { margin: 0; font-size: 18px; }
+.unit-head p { margin: 4px 0 0; opacity: .95; font-size: 14px; }
+
+.path { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 8px 0 12px; }
+.node {
+  width: 74px; height: 74px; border-radius: 50%; border: 0;
+  background: var(--c); color: #fff; font-size: 28px; cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0,0,0,.18); position: relative;
+}
+.node:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,.18); }
+.node.locked { background: #e5e5e5; box-shadow: 0 6px 0 #cfcfcf; cursor: not-allowed; }
+.node.done::after {
+  content: "★"; position: absolute; top: -6px; right: -6px;
+  background: var(--orange); color: #fff; border-radius: 50%;
+  width: 24px; height: 24px; font-size: 13px; line-height: 24px; text-align: center;
+}
+.node-label { font-size: 13px; font-weight: 700; color: var(--muted); }
+
+/* Quiz */
+.quiz-top { display: flex; align-items: center; gap: 12px; }
+.progress { flex: 1; height: 16px; background: var(--line); border-radius: 8px; overflow: hidden; }
+.progress > div { height: 100%; background: var(--green); transition: width .3s; }
+.lives { font-weight: 800; color: var(--red); min-width: 44px; text-align: right; }
+.question { text-align: center; margin: 32px 0 8px; }
+.question h3 { font-size: 22px; margin: 0 0 20px; }
+.listen {
+  width: 116px; height: 116px; border-radius: 50%; border: 0;
+  background: var(--blue); color: #fff; font-size: 46px; cursor: pointer;
+  box-shadow: 0 6px 0 #1690c9;
+}
+.listen:active { transform: translateY(4px); box-shadow: 0 2px 0 #1690c9; }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+.opt {
+  background: #fff; border: 2px solid var(--line); border-bottom-width: 5px;
+  border-radius: 16px; padding: 18px 8px; font-size: 20px; font-weight: 800;
+  color: var(--text); cursor: pointer;
+}
+.opt:active { transform: translateY(2px); }
+.opt:disabled { cursor: default; }
+.opt.correct { border-color: var(--green); background: #d7ffb8; color: var(--green-d); }
+.opt.wrong { border-color: var(--red); background: #ffdfe0; color: var(--red); }
+
+.feedback {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  max-width: 520px; margin: 0 auto;
+  padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+  border-radius: 20px 20px 0 0;
+}
+.feedback.good { background: #d7ffb8; }
+.feedback.bad { background: #ffdfe0; }
+.feedback p { margin: 0 0 4px; font-weight: 800; font-size: 18px; }
+.feedback.good p { color: var(--green-d); }
+.feedback.bad p { color: var(--red); }
+.feedback .btn { margin-top: 12px; }
+
+/* Results */
+.results { text-align: center; padding-top: 32px; }
+.results .big { font-size: 80px; }
+.stars { font-size: 40px; letter-spacing: 6px; color: var(--orange); margin: 8px 0; }
+.card {
+  background: #fff; border-radius: 16px; padding: 14px; margin: 12px 0;
+  border: 2px solid var(--line); text-align: left;
+}
+
+/* Piano */
+.piano-note { font-size: 15px; color: var(--muted); margin: 0 0 12px; }
+.keys { display: flex; overflow-x: auto; gap: 6px; padding: 8px 2px 16px; }
+.key {
+  flex: 0 0 58px; height: 280px; border-radius: 0 0 14px 14px;
+  border: 3px solid var(--k); background: #fff; color: var(--k);
+  font-size: 22px; font-weight: 800; display: flex; align-items: flex-end;
+  justify-content: center; padding-bottom: 14px; cursor: pointer;
+  user-select: none; touch-action: manipulation;
+}
+.key.lit, .key:active { background: var(--k); color: #fff; }
+.scale-btn { margin-top: 8px; }
+
+/* Badges */
+.badge {
+  display: flex; gap: 14px; align-items: center; background: #fff;
+  border-radius: 16px; padding: 14px; margin-bottom: 10px; border: 2px solid var(--line);
+}
+.badge .icon { font-size: 34px; }
+.badge.locked { opacity: .45; filter: grayscale(1); }
+.badge h4 { margin: 0 0 2px; font-size: 16px; }
+.badge p { margin: 0; font-size: 14px; color: var(--muted); }
+
+/* Song Sheet Music */
+.song-sheet {
+  background: #fff; border-radius: 12px; padding: 16px; margin: 16px 0;
+  border: 2px solid var(--blue);
+}
+.song-title {
+  font-size: 14px; font-weight: 700; color: var(--blue);
+  margin: 0 0 12px; text-align: center;
+}
+.staff {
+  position: relative; height: 160px; background: linear-gradient(to bottom, transparent 19px, var(--line) 19px, var(--line) 21px, transparent 21px, transparent 43px, var(--line) 43px, var(--line) 45px, transparent 45px, transparent 67px, var(--line) 67px, var(--line) 69px, transparent 69px, transparent 91px, var(--line) 91px, var(--line) 93px, transparent 93px, transparent 115px, var(--line) 115px, var(--line) 117px);
+  border-radius: 8px; margin-bottom: 12px; overflow-x: auto;
+  padding: 20px 0;
+}
+.staff-line {
+  display: none;
+}
+.notes-container {
+  position: relative; height: 100%;
+}
+.note-dot {
+  position: absolute; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; color: var(--blue); cursor: pointer;
+  border-radius: 50%; transition: all 0.2s;
+  background: rgba(28, 176, 246, 0.15);
+  border: 2px solid var(--blue);
+  margin-left: -20px;
+  margin-top: -20px;
+}
+.note-dot:hover {
+  background: rgba(28, 176, 246, 0.3); transform: scale(1.15); box-shadow: 0 0 10px rgba(28, 176, 246, 0.5);
+}
+.note-dot:active { transform: scale(0.9); }
+.sheet-hint {
+  font-size: 12px; color: var(--muted); margin: 8px 0 0;
+  text-align: center;
+}
+
+/* Full Song Notation View */
+.notation-view {
+  padding: 16px 0;
+}
+.notation-view h2 {
+  text-align: center; color: var(--blue); margin: 16px 0;
+  font-size: 22px;
+}
+.full-staff {
+  background: #fff; border-radius: 12px; padding: 20px;
+  margin: 20px 0; border: 2px solid var(--blue);
+}
+.full-staff .staff {
+  position: relative; height: 200px; background: linear-gradient(to bottom, transparent 19px, var(--line) 19px, var(--line) 21px, transparent 21px, transparent 43px, var(--line) 43px, var(--line) 45px, transparent 45px, transparent 67px, var(--line) 67px, var(--line) 69px, transparent 69px, transparent 91px, var(--line) 91px, var(--line) 93px, transparent 93px, transparent 115px, var(--line) 115px, var(--line) 117px);
+  border-radius: 8px;
+  padding: 20px 0;
+  overflow-x: auto;
+  min-width: 100%;
+}
+.full-staff .notes-container {
+  position: relative; height: 100%;
+}
+.notation-note {
+  position: absolute; display: flex; flex-direction: column;
+  align-items: center; cursor: pointer;
+  margin-left: -30px; margin-top: -20px;
+}
+.note-head {
+  font-size: 40px; color: var(--blue);
+  transition: all 0.2s;
+  line-height: 1;
+}
+.note-label {
+  font-size: 14px; font-weight: 700; color: var(--blue);
+  margin-top: 4px; background: rgba(28, 176, 246, 0.1);
+  padding: 2px 8px; border-radius: 6px;
+  min-width: 28px; text-align: center;
+}
+.notation-note:hover .note-head {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 8px rgba(28, 176, 246, 0.6));
+}
+.notation-controls {
+  display: flex; gap: 12px; margin-top: 20px;
+}
+.notation-controls .btn {
+  flex: 1;
+}
+.notation-hint {
+  text-align: center; color: var(--muted); font-size: 13px;
+  margin-top: 12px;
+}

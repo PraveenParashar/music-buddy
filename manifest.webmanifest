@@ -1,0 +1,14 @@
+{
+  "name": "Tune Quest - Learn Music",
+  "short_name": "Tune Quest",
+  "description": "Learn music with fun, bite-sized lessons.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#58cc02",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
